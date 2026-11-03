@@ -24,13 +24,15 @@ if (!fontsLoaded) {
 
   return (                    
         <View style={styles.container}>
-            <Image 
-            source={require('../../assets/images/bus-logo.png')} 
-             style={styles.logoImage}
-            resizeMode="contain"
-            />
-            
-            <Text style={styles.logo}>ValeuMotô!</Text>
+            <View style={styles.logoContainer}>
+              <Image 
+                source={require('../../assets/images/bus-logo.png')} 
+                style={styles.logoImage}
+                resizeMode="contain"
+               />
+
+              <Text style={styles.logo}>ValeuMotô!</Text>
+            </View>
             <Text style={styles.title}>Entrar</Text>
             <View>
                 <Text style={styles.label}>Email</Text>
@@ -45,11 +47,13 @@ if (!fontsLoaded) {
                 />
             </View>
             {/* onPress={() => router.navigate('') }*/}
-            <TouchableOpacity  activeOpacity={0.7} style={styles.button}>
+            <TouchableOpacity onPress={() => router.navigate('./(tabs)')} activeOpacity={0.7} style={styles.button}>
                 <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
-            <Text style={styles.subtitle}>Esqueceu a senha?</Text>
-             <TouchableOpacity  activeOpacity={0.7} >
+            <TouchableOpacity onPress={() => router.navigate('./novaSenha')} activeOpacity={0.7} >
+                <Text style={styles.subtitle}>Esqueceu a senha ?</Text>
+            </TouchableOpacity> 
+             <TouchableOpacity onPress={() => router.navigate('./criarConta')} activeOpacity={0.7} >
                 <Text style={styles.criarConta}>Criar Conta</Text>
             </TouchableOpacity>
 
@@ -80,17 +84,22 @@ input: {
     fontSize: 16,
 },
 logoImage: {
-    width: 150,
-    height: 150,
-    marginBottom: 70,
+    width:75,
+    height: 74,
+    marginRight: -15,
 },
+logoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 75,
+},
+
 logo: {
     fontFamily: 'Poppins_800ExtraBold',
     fontSize: 38,
     color: "#a81f6b",
-    marginBottom: 55,
-    marginTop: -180,
-   alignItems: "flex-end"
+    marginLeft: 8,
 },
   title: {
      fontFamily: 'Poppins_700Bold',
