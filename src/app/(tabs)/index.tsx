@@ -2,6 +2,9 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import {router} from 'expo-router'
 
 
+
+let emailUsuario = '';
+
 export default function Mapa(){
         return(
             <View style={styles.container}>
