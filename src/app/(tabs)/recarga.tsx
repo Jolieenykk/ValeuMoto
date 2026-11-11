@@ -6,10 +6,10 @@ import { ModalInlineCartao } from "../modal/ModalInlineCartao";
 import { ModalInlinePix } from "../modal/ModalInlinePix";
 
 interface RecargaProps {
-  userEmail?: string;
+  userEmail?: Promise<string | null>;
 }
 
-export default function Recarga({ userEmail = 'usuario1@teste.com' }: RecargaProps) {
+export default function Recarga() {
   const [modalInlinePix, setModalInlinePix] = useState<boolean>(false);
   const [modalInlineCartao, setModalInlineCartao] = useState<boolean>(false);
 
@@ -17,17 +17,15 @@ export default function Recarga({ userEmail = 'usuario1@teste.com' }: RecargaPro
   const [valorInput, setValorInput] = useState("");
   const [cartao,setCartao] = useState("");
 
-  const STORAGE_KEY = `@saldo_passe:${userEmail}`;
-
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY).then((res) => {
+    AsyncStorage.getItem('@usuario_email').then((res) => {
       if (res !== null) {
         setSaldoAtual(parseFloat(res));
       } else {
         setSaldoAtual(0.0);
       }
     });
-  }, [userEmail]);
+  }, []);
 
   const handleRecarga = async () => {
     const recarga = parseFloat(valorInput.replace(',','.'));
@@ -45,7 +43,7 @@ export default function Recarga({ userEmail = 'usuario1@teste.com' }: RecargaPro
     const saldoNovo = saldoAtual + recarga;
     setSaldoAtual(saldoNovo);
 
-    await AsyncStorage.setItem(STORAGE_KEY, saldoNovo.toString());
+    await AsyncStorage.setItem('@usuario_email', saldoNovo.toString());
     setValorInput('');
     setCartao('');
   }
