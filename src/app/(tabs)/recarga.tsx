@@ -1,8 +1,16 @@
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView} from 'react-native'
+import { ModalInlinePix } from '../modal/ModalInlinePix'
+import { useState } from 'react'
+import { BotaoCustomizado } from '../components/BotaoCustomizado'
+import { ModalInlineCartao } from '../modal/ModalInlineCartao';
 
 export default function Recarga(){
+
+    const [modalInlinePix, setModalInlinePix]= useState<boolean>(false);
+    const [modalInlineCartao, setModalInlineCartao]= useState<boolean>(false);
      
     return(
+
         <ScrollView>
             <View style={styles.container}>
                 <Text style={styles.title}>Recarga do passe</Text>
@@ -34,25 +42,31 @@ export default function Recarga(){
                 <View style={styles.pagamentoContainer}>
                      <Text style={styles.labelBold}> Método de pagamento</Text>
                      <View style={styles.pixCartaoContainer}>
-                            <TouchableOpacity activeOpacity={0.7} style={styles.button}>
-                                <Text style={styles.buttonText}>Pix</Text>
-                            </TouchableOpacity>
-                     
-                            <TouchableOpacity activeOpacity={0.7} style={styles.button}>
-                                <Text style={styles.buttonText}>Cartão de Crédito</Text>
-                            </TouchableOpacity>
-{/*                         
-                        <View style={styles.pixContainer}> */}
-                            {/* No pontilhado vai estar o número que o cliente digitou no input */}
-                            {/* <Text style={styles.label}> Recarregue .... com o código Pix abaixo </Text> */}
-                            {/* <View style={styles.CodigoPixContainer}> */}
-                                {/* <Text style={styles.label}>00020126BR.GOV.BCB.PIX-valeumoto-519r5n98-15.00 </Text> */}
-                            {/* </View> */}
-                        {/* </View> */}
-                     </View>
+                        <BotaoCustomizado
+                        title="Pix"
+                        onPress={() => setModalInlinePix(true) }
+                        />
+
+                        <ModalInlinePix
+                        visivel= {modalInlinePix}
+                        aoFechar={() =>  setModalInlinePix(false)}
+                        />
+                        <BotaoCustomizado
+                        title="Cartão de Crédito"
+                        onPress={() => setModalInlineCartao(true)}
+                        />
+                        
+                        <ModalInlineCartao
+                        visivel= {modalInlineCartao}
+                        aoFechar={() =>  setModalInlineCartao(false)}
+                        />
+                    </View>
+                       
+                    <View>
                         <TouchableOpacity activeOpacity={0.7} style={styles.buttonConfirma}>
                             <Text style={styles.buttonTextConfirma}>CONFIRMAR RECARGA</Text>
                         </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </ScrollView>
@@ -169,24 +183,7 @@ buttonText: {
     fontSize: 16,
     color: "#8D1A5C",
     textAlign: "center",
-},
-pixContainer:{
-    alignItems:'flex-start',
-    justifyContent:'center',
-    backgroundColor:"#E8E4EE",
-    borderRadius: 25,
-    padding: 20,
-    marginTop: 30,
-},
-CodigoPixContainer:{
-        alignItems:'flex-start',
-    justifyContent:'center',
-    backgroundColor:"#E8E4EE",
-    borderRadius: 25,
-    padding: 20,    
-    marginTop: 30,
-    width: 360,
-    marginBottom: 40,
 }
+
 
 })
